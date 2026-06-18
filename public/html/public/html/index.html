@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodTech Digital — Enterprise Digital Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #38BDF8;
+  --sky-light: #7DD3FC;
+  --sky-dark: #0EA5E9;
+  --sky-deep: #0284C7;
+  --gold: #F59E0B;
+  --gold-light: #FCD34D;
+  --gold-deep: #D97706;
+  --bg: #020B18;
+  --bg2: #050F1E;
+  --bg3: #071525;
+  --surface: rgba(7,21,37,0.8);
+  --surface2: rgba(14,32,55,0.6);
+  --border: rgba(3, 34, 47, 0.12);
+  --border2: rgba(56,189,248,0.22);
+  --text: #F0F8FF;
+  --text2: #94AABB;
+  --text3: #5A7A9A;
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.15;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--sky-deep);border-radius:3px;}
+
+/* ── NAVBAR ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 5%;
+  height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(2,11,24,0.7);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:all .3s ease;
+}
+nav.scrolled{
+  background:rgba(2,11,24,0.92);
+  border-bottom-color:var(--border2);
+  box-shadow:0 4px 40px rgba(0,0,0,0.5);
+}
+.logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:20px;font-weight:700;
+  background:linear-gradient(90deg,var(--sky),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.logo span{color:var(--gold);-webkit-text-fill-color:var(--gold);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--sky-light);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--sky-deep),var(--sky-dark));
+  color:#fff;border:none;padding:10px 22px;border-radius:8px;
+  font-size:14px;font-weight:600;cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(14,165,233,0.35);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--sky);border-radius:2px;transition:.3s;}
+.mobile-menu{
+  display:none;position:fixed;top:68px;left:0;right:0;
+  background:rgba(2,11,24,0.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:1.5rem 5%;z-index:99;
+}
+.mobile-menu.open{display:block;}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+.mobile-menu a{color:var(--text2);text-decoration:none;font-size:16px;font-weight:500;display:block;padding:.5rem 0;}
+.mobile-menu a:hover{color:var(--sky);}
+
+/* ── BACKGROUNDS & EFFECTS ── */
+.grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(56,189,248,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.orb{
+  position:absolute;border-radius:50%;pointer-events:none;filter:blur(80px);
+}
+.orb-sky{background:rgba(14,165,233,0.18);}
+.orb-gold{background:rgba(245,158,11,0.12);}
+.orb-deep{background:rgba(2,132,199,0.10);}
+
+/* ── SECTIONS ── */
+section{position:relative;overflow:hidden;}
+.container{max-width:1200px;margin:0 auto;padding:0 5%;}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding-top:68px;
+}
+.hero-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+  padding:5rem 0;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(56,189,248,0.08);
+  border:1px solid rgba(56,189,248,0.2);
+  border-radius:50px;padding:6px 16px;
+  font-size:12px;font-weight:600;color:var(--sky-light);
+  letter-spacing:.05em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.badge-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--sky);
+  box-shadow:0 0 8px var(--sky);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+h1.hero-title{
+  font-size:clamp(2.4rem,5vw,3.8rem);
+  font-weight:800;
+  line-height:1.1;
+  margin-bottom:1.5rem;
+}
+.title-sky{
+  background:linear-gradient(135deg,var(--sky-light),var(--sky));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.title-gold{
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:1.05rem;color:var(--text2);
+  max-width:500px;margin-bottom:2.5rem;line-height:1.7;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{
+  background:linear-gradient(135deg,var(--sky-dark),var(--sky-deep));
+  color:#fff;border:none;padding:14px 28px;
+  border-radius:10px;font-size:15px;font-weight:600;
+  cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(14,165,233,0.4);}
+.btn-outline{
+  background:transparent;
+  border:1px solid rgba(56,189,248,0.3);
+  color:var(--sky-light);padding:14px 28px;
+  border-radius:10px;font-size:15px;font-weight:600;
+  cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block;
+}
+.btn-outline:hover{background:rgba(56,189,248,0.08);border-color:var(--sky);transform:translateY(-2px);}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1rem;margin-top:2.5rem;
+}
+.stat-card{
+  background:rgba(7,21,37,0.6);
+  border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.2rem;
+  transition:border-color .2s;
+}
+.stat-card:hover{border-color:var(--border2);}
+.stat-val{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.9rem;font-weight:700;
+  background:linear-gradient(135deg,var(--sky-light),var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-lbl{font-size:12px;color:var(--text3);margin-top:2px;font-weight:500;}
+
+/* Dashboard Mockup */
+.dashboard-wrap{
+  position:relative;
+}
+.dashboard{
+  background:rgba(7,21,37,0.85);
+  border:1px solid rgba(56,189,248,0.15);
+  border-radius:var(--radius-lg);
+  padding:1.5rem;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 60px rgba(14,165,233,0.08);
+  animation:floatMain 6s ease-in-out infinite;
+}
+@keyframes floatMain{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.dash-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.2rem;
+}
+.dash-title{font-size:13px;font-weight:600;color:var(--text2);}
+.dash-live{
+  display:flex;align-items:center;gap:5px;
+  font-size:11px;color:#4ADE80;font-weight:600;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:pulse 1.5s infinite;}
+.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.2rem;}
+.kpi{
+  background:rgba(14,32,55,0.8);border:1px solid var(--border);
+  border-radius:var(--radius);padding:.9rem .75rem;
+}
+.kpi-label{font-size:10px;color:var(--text3);margin-bottom:4px;font-weight:500;}
+.kpi-val{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;}
+.kpi-val.sky{color:var(--sky);}
+.kpi-val.gold{color:var(--gold);}
+.kpi-val.green{color:#4ADE80;}
+.kpi-change{font-size:10px;color:#4ADE80;margin-top:2px;}
+.chart-area{
+  background:rgba(14,32,55,0.5);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem;margin-bottom:.75rem;
+  height:120px;position:relative;overflow:hidden;
+}
+.chart-label{font-size:11px;color:var(--text3);margin-bottom:.5rem;font-weight:500;}
+.chart-bars{display:flex;align-items:flex-end;gap:4px;height:80px;}
+.bar{
+  flex:1;border-radius:4px 4px 0 0;
+  background:linear-gradient(180deg,var(--sky-dark),rgba(14,165,233,0.3));
+  transition:height .5s ease;
+}
+.bar.gold{background:linear-gradient(180deg,var(--gold),rgba(245,158,11,0.3));}
+.dash-bottom{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.ai-card{
+  background:linear-gradient(135deg,rgba(14,165,233,0.1),rgba(245,158,11,0.05));
+  border:1px solid rgba(56,189,248,0.2);
+  border-radius:var(--radius);padding:.9rem;
+}
+.ai-tag{font-size:10px;color:var(--gold);font-weight:600;letter-spacing:.05em;margin-bottom:4px;}
+.ai-text{font-size:11px;color:var(--text2);line-height:1.5;}
+.perf-card{
+  background:rgba(14,32,55,0.6);border:1px solid var(--border);
+  border-radius:var(--radius);padding:.9rem;
+}
+.perf-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.perf-name{font-size:11px;color:var(--text2);}
+.perf-val{font-size:11px;font-weight:600;color:var(--sky-light);}
+.perf-bar-bg{height:3px;background:rgba(56,189,248,0.1);border-radius:2px;overflow:hidden;}
+.perf-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--sky-deep),var(--sky-light));}
+
+/* Floating cards */
+.float-badge{
+  position:absolute;
+  background:rgba(7,21,37,0.95);
+  border:1px solid rgba(56,189,248,0.2);
+  border-radius:var(--radius);padding:.6rem 1rem;
+  font-size:11px;font-weight:600;
+  box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  white-space:nowrap;
+}
+.float-badge.a{top:-20px;right:20px;color:var(--gold);animation:float1 4s ease-in-out infinite;}
+.float-badge.b{bottom:30px;left:-20px;color:#4ADE80;animation:float2 5s ease-in-out infinite;}
+@keyframes float1{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-8px) rotate(-2deg);}}
+@keyframes float2{0%,100%{transform:translateY(0) rotate(2deg);}50%{transform:translateY(-10px) rotate(2deg);}}
+
+/* ── TRUST ── */
+#trust{
+  padding:3rem 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:rgba(5,15,30,0.5);
+}
+.trust-title{text-align:center;font-size:12px;color:var(--text3);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem;}
+.logo-track{
+  overflow:hidden;
+  -webkit-mask:linear-gradient(90deg,transparent,black 10%,black 90%,transparent);
+}
+.logo-inner{
+  display:flex;gap:4rem;animation:scroll 20s linear infinite;
+  width:max-content;
+}
+@keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.trust-logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:15px;font-weight:700;
+  color:var(--text3);white-space:nowrap;
+  display:flex;align-items:center;gap:.5rem;
+  transition:color .2s;
+}
+.trust-logo span{color:var(--sky-deep);font-size:18px;}
+
+/* ── SECTION COMMON ── */
+.section-pad{padding:7rem 0;}
+.section-eyebrow{
+  display:inline-block;
+  font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--sky);margin-bottom:1rem;
+}
+.section-title{
+  font-size:clamp(2rem,4vw,2.8rem);
+  font-weight:700;margin-bottom:1rem;
+}
+.section-sub{font-size:1.05rem;color:var(--text2);max-width:560px;line-height:1.7;}
+.section-header{margin-bottom:4rem;}
+
+/* ── SERVICES ── */
+.services-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:1.5rem;
+}
+.service-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:2rem;
+  transition:all .3s ease;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+}
+.service-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(56,189,248,0.06),transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.service-card:hover{
+  border-color:rgba(56,189,248,0.35);
+  transform:translateY(-4px);
+  box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 30px rgba(56,189,248,0.06);
+}
+.service-card:hover::before{opacity:1;}
+.svc-icon{
+  width:52px;height:52px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(14,165,233,0.15),rgba(245,158,11,0.08));
+  border:1px solid rgba(56,189,248,0.2);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.2rem;font-size:22px;
+  transition:transform .3s;
+}
+.service-card:hover .svc-icon{transform:scale(1.1);}
+.svc-title{font-size:1.1rem;font-weight:700;margin-bottom:.6rem;}
+.svc-desc{font-size:.9rem;color:var(--text2);line-height:1.6;margin-bottom:1rem;}
+.svc-features{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.svc-features li{
+  font-size:.82rem;color:var(--text3);
+  display:flex;align-items:center;gap:.5rem;
+}
+.svc-features li::before{
+  content:'';display:block;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--sky-dark);flex-shrink:0;
+}
+.svc-arrow{
+  position:absolute;top:1.5rem;right:1.5rem;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(56,189,248,0.08);
+  border:1px solid rgba(56,189,248,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--sky);
+  transition:all .3s;
+}
+.service-card:hover .svc-arrow{background:var(--sky-dark);color:#fff;transform:rotate(45deg);}
+
+/* ── INDUSTRIES ── */
+#industries{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);}
+.industries-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.25rem;
+}
+.ind-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:2rem 1.8rem;
+  transition:all .3s;
+  position:relative;overflow:hidden;
+}
+.ind-card::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--sky-deep),var(--gold));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s ease;
+}
+.ind-card:hover{border-color:var(--border2);transform:translateY(-3px);}
+.ind-card:hover::after{transform:scaleX(1);}
+.ind-icon{font-size:2.2rem;margin-bottom:1rem;}
+.ind-title{font-size:1.05rem;font-weight:700;margin-bottom:.5rem;}
+.ind-desc{font-size:.88rem;color:var(--text2);line-height:1.6;}
+
+/* ── TECH STACK ── */
+#technology{background:var(--bg2);}
+.tech-categories{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:3rem;}
+.tech-cat{
+  padding:8px 18px;border-radius:50px;
+  background:rgba(56,189,248,0.06);
+  border:1px solid var(--border);
+  font-size:13px;font-weight:600;color:var(--text2);
+  cursor:pointer;transition:all .2s;
+}
+.tech-cat.active,.tech-cat:hover{
+  background:rgba(56,189,248,0.12);
+  border-color:var(--sky);color:var(--sky-light);
+}
+.tech-grid{
+  display:flex;flex-wrap:wrap;gap:1rem;
+}
+.tech-badge{
+  display:flex;align-items:center;gap:.6rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:.7rem 1.2rem;
+  font-size:.88rem;font-weight:600;color:var(--text);
+  transition:all .3s;
+  animation:techFloat var(--dur,4s) ease-in-out var(--del,0s) infinite;
+}
+@keyframes techFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+.tech-badge:hover{
+  border-color:var(--border2);
+  background:rgba(14,32,55,0.9);
+  transform:translateY(-4px) !important;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+.tech-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--sky);
+  box-shadow:0 0 8px rgba(56,189,248,0.5);
+}
+.tech-dot.gold{background:var(--gold);box-shadow:0 0 8px rgba(245,158,11,0.5);}
+.tech-dot.green{background:#4ADE80;box-shadow:0 0 8px rgba(74,222,128,0.5);}
+.tech-dot.purple{background:#A78BFA;box-shadow:0 0 8px rgba(167,139,250,0.5);}
+
+/* ── FEATURES ── */
+#features{background:var(--bg);}
+.features-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:start;
+}
+.feature-timeline{display:flex;flex-direction:column;gap:0;}
+.feat-item{
+  display:flex;gap:1.5rem;
+  padding:1.5rem 0;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;transition:all .2s;
+}
+.feat-item:last-child{border-bottom:none;}
+.feat-item:hover .feat-num{
+  background:linear-gradient(135deg,var(--sky-deep),var(--sky));
+  color:#fff;border-color:transparent;
+}
+.feat-num{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(56,189,248,0.06);
+  border:1px solid rgba(56,189,248,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:14px;font-weight:700;color:var(--sky);
+  flex-shrink:0;transition:all .3s;
+}
+.feat-content{}
+.feat-title{font-size:1rem;font-weight:700;margin-bottom:.4rem;}
+.feat-desc{font-size:.88rem;color:var(--text2);line-height:1.6;}
+.features-visual{
+  position:sticky;top:5rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:2rem;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.vis-title{font-size:.88rem;color:var(--text3);margin-bottom:1.5rem;font-weight:500;}
+.vis-metric{
+  background:rgba(14,32,55,0.6);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem;margin-bottom:.75rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.vis-name{font-size:.88rem;color:var(--text2);}
+.vis-score{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.2rem;font-weight:700;color:var(--sky-light);
+}
+.vis-bar{height:4px;background:rgba(56,189,248,0.1);border-radius:2px;margin-top:.5rem;overflow:hidden;}
+.vis-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--sky-deep),var(--sky-light));}
+
+/* ── CASE STUDIES ── */
+#casestudies{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);}
+.cases-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:1.5rem;
+}
+.case-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  transition:all .3s;
+  position:relative;
+}
+.case-card:hover{
+  border-color:rgba(56,189,248,0.3);
+  transform:translateY(-5px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.5);
+}
+.case-img{
+  height:200px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.case-img-inner{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:4rem;
+  background:linear-gradient(135deg,rgba(14,165,233,0.08),rgba(245,158,11,0.05));
+  border-bottom:1px solid var(--border);
+}
+.case-metric{
+  position:absolute;top:1rem;right:1rem;
+  background:linear-gradient(135deg,rgba(7,21,37,0.95),rgba(7,21,37,0.9));
+  border:1px solid rgba(56,189,248,0.25);
+  border-radius:8px;padding:6px 14px;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:13px;font-weight:700;
+  color:var(--gold-light);
+}
+.case-body{padding:1.8rem;}
+.case-tag{font-size:11px;color:var(--sky);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;}
+.case-title{font-size:1.1rem;font-weight:700;margin-bottom:.6rem;}
+.case-desc{font-size:.88rem;color:var(--text2);line-height:1.6;margin-bottom:1.2rem;}
+.case-link{
+  font-size:.88rem;font-weight:600;color:var(--sky);
+  text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;
+  transition:gap .2s;
+}
+.case-link:hover{gap:.7rem;}
+
+/* ── PROCESS ── */
+#process{background:var(--bg2);}
+.process-scroll{overflow-x:auto;padding-bottom:1rem;}
+.process-track{
+  display:flex;gap:0;min-width:max-content;
+  position:relative;
+}
+.process-track::before{
+  content:'';position:absolute;
+  top:28px;left:60px;right:60px;height:2px;
+  background:linear-gradient(90deg,var(--sky-deep),var(--gold));
+  z-index:0;
+}
+.proc-step{
+  display:flex;flex-direction:column;align-items:center;
+  width:180px;padding:0 1rem;position:relative;z-index:1;
+}
+.proc-num{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--bg2);
+  border:2px solid var(--sky-deep);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.1rem;font-weight:700;color:var(--sky);
+  margin-bottom:1rem;
+  transition:all .3s;
+  position:relative;z-index:2;
+}
+.proc-step:hover .proc-num{
+  background:var(--sky-dark);color:#fff;
+  border-color:var(--sky);
+  box-shadow:0 0 24px rgba(14,165,233,0.4);
+}
+.proc-title{font-size:.9rem;font-weight:700;text-align:center;margin-bottom:.3rem;}
+.proc-desc{font-size:.78rem;color:var(--text3);text-align:center;line-height:1.5;}
+
+/* ── TESTIMONIALS ── */
+#testimonials{background:var(--bg);}
+.testi-track{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);}
+.testi-inner{display:flex;gap:1.5rem;animation:tscroll 30s linear infinite;width:max-content;}
+.testi-inner:hover{animation-play-state:paused;}
+@keyframes tscroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.testi-card{
+  width:360px;flex-shrink:0;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:2rem;
+  position:relative;
+}
+.testi-quote{font-size:.95rem;color:var(--text2);line-height:1.7;margin-bottom:1.5rem;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:.75rem;}
+.testi-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sky-deep),var(--sky-dark));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;color:#fff;
+  flex-shrink:0;
+}
+.testi-name{font-size:.9rem;font-weight:700;}
+.testi-company{font-size:.8rem;color:var(--text3);}
+.testi-stars{
+  position:absolute;top:1.5rem;right:1.5rem;
+  display:flex;gap:2px;
+}
+.star{color:var(--gold);font-size:14px;}
+
+/* ── FAQ ── */
+#faq{background:var(--bg2);}
+.faq-list{max-width:760px;margin:0 auto;}
+.faq-item{
+  border-bottom:1px solid var(--border);
+}
+.faq-q{
+  width:100%;text-align:left;
+  background:none;border:none;
+  padding:1.5rem 0;
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;
+  font-size:1rem;font-weight:600;color:var(--text);
+  font-family:'Inter',sans-serif;
+  transition:color .2s;
+}
+.faq-q:hover{color:var(--sky-light);}
+.faq-icon{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(56,189,248,0.08);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--sky);
+  flex-shrink:0;transition:all .3s;
+}
+.faq-item.open .faq-icon{background:var(--sky-deep);color:#fff;transform:rotate(45deg);}
+.faq-a{
+  overflow:hidden;max-height:0;
+  transition:max-height .4s ease,padding .3s ease;
+  font-size:.92rem;color:var(--text2);line-height:1.7;
+}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.5rem;}
+
+/* ── CTA ── */
+#cta{
+  background:linear-gradient(135deg,rgba(14,165,233,0.06) 0%,rgba(2,11,24,1) 50%,rgba(245,158,11,0.04) 100%);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.cta-inner{
+  text-align:center;
+  padding:7rem 0;
+  max-width:700px;
+  margin:0 auto;
+}
+.cta-title{
+  font-size:clamp(2rem,5vw,3.2rem);
+  font-weight:800;margin-bottom:1rem;
+}
+.cta-sub{font-size:1.1rem;color:var(--text2);margin-bottom:2.5rem;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  padding:5rem 0 2rem;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.5fr;
+  gap:3rem;margin-bottom:4rem;
+}
+.footer-brand .logo{display:block;margin-bottom:1rem;font-size:1.2rem;}
+.footer-tagline{font-size:.88rem;color:var(--text3);line-height:1.6;margin-bottom:1.5rem;}
+.footer-socials{display:flex;gap:.75rem;}
+.social-btn{
+  width:36px;height:36px;border-radius:8px;
+  background:rgba(56,189,248,0.06);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--text3);
+  text-decoration:none;transition:all .2s;
+}
+.social-btn:hover{background:rgba(56,189,248,0.12);border-color:var(--sky);color:var(--sky);}
+.footer-col-title{font-size:.82rem;font-weight:700;color:var(--text);letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.2rem;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.footer-links a{font-size:.88rem;color:var(--text3);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--sky-light);}
+.newsletter-form{display:flex;gap:.5rem;margin-top:.75rem;}
+.newsletter-input{
+  flex:1;background:rgba(7,21,37,0.8);
+  border:1px solid var(--border);
+  border-radius:8px;padding:10px 14px;
+  color:var(--text);font-size:.88rem;
+  outline:none;transition:border-color .2s;
+  font-family:'Inter',sans-serif;
+}
+.newsletter-input::placeholder{color:var(--text3);}
+.newsletter-input:focus{border-color:var(--sky);}
+.newsletter-btn{
+  background:linear-gradient(135deg,var(--sky-dark),var(--sky-deep));
+  border:none;border-radius:8px;padding:10px 18px;
+  color:#fff;font-size:.88rem;font-weight:600;cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.newsletter-btn:hover{box-shadow:0 4px 16px rgba(14,165,233,0.3);}
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding-top:2rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-copy{font-size:.82rem;color:var(--text3);}
+.footer-legal{display:flex;gap:1.5rem;}
+.footer-legal a{font-size:.82rem;color:var(--text3);text-decoration:none;transition:color .2s;}
+.footer-legal a:hover{color:var(--sky-light);}
+
+/* ── ANIMATE ON SCROLL ── */
+.aos{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.aos.in{opacity:1;transform:none;}
+.aos-delay-1{transition-delay:.1s;}
+.aos-delay-2{transition-delay:.2s;}
+.aos-delay-3{transition-delay:.3s;}
+.aos-delay-4{transition-delay:.4s;}
+.aos-delay-5{transition-delay:.5s;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .nav-links,.nav-cta-wrap{display:none;}
+  .hamburger{display:flex;}
+  .hero-inner{grid-template-columns:1fr;gap:3rem;}
+  .dashboard-wrap{max-width:480px;margin:0 auto;}
+  .features-layout{grid-template-columns:1fr;}
+  .features-visual{position:static;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .proc-step{width:140px;}
+  .footer-grid{grid-template-columns:1fr;}
+}
+
+/* Counter animation */
+@keyframes countUp{from{opacity:0;}to{opacity:1;}}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="logo">FOODTECH <span>DIGITAL</span></a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#technology">Technology</a></li>
+    <li><a href="#casestudies">Case Studies</a></li>
+    <li><a href="#faq">About</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+  <div class="nav-cta-wrap">
+    <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#hero" onclick="closeMenu()">Home</a></li>
+    <li><a href="#services" onclick="closeMenu()">Services</a></li>
+    <li><a href="#industries" onclick="closeMenu()">Industries</a></li>
+    <li><a href="#technology" onclick="closeMenu()">Technology</a></li>
+    <li><a href="#casestudies" onclick="closeMenu()">Case Studies</a></li>
+    <li><a href="#faq" onclick="closeMenu()">About</a></li>
+    <li><a href="#cta" onclick="closeMenu()">Contact</a></li>
+    <li><button class="btn-primary" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'});closeMenu()">Book Consultation</button></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="orb orb-sky" style="width:600px;height:600px;top:-200px;left:-150px;"></div>
+  <div class="orb orb-gold" style="width:400px;height:400px;top:10%;right:-100px;"></div>
+  <div class="orb orb-deep" style="width:300px;height:300px;bottom:10%;left:30%;"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge aos"><div class="badge-dot"></div>Enterprise Digital Transformation</div>
+        <h1 class="hero-title aos aos-delay-1">Transforming <span class="title-sky">Food Businesses</span> Through <span class="title-gold">Technology</span></h1>
+        <p class="hero-sub aos aos-delay-2">Enterprise software development, AI-powered automation, cloud solutions, analytics platforms, and digital transformation services built for modern food businesses.</p>
+        <div class="hero-btns aos aos-delay-3">
+          <a href="#cta" class="btn-primary">Book Consultation</a>
+          <a href="#services" class="btn-outline">Explore Solutions →</a>
+        </div>
+        <div class="hero-stats aos aos-delay-4">
+          <div class="stat-card">
+            <div class="stat-val" data-target="500">0</div>
+            <div class="stat-lbl">Projects Delivered</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" data-target="98">0</div>
+            <div class="stat-lbl">Client Satisfaction %</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" data-target="50">0</div>
+            <div class="stat-lbl">Enterprise Clients</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">24/7</div>
+            <div class="stat-lbl">Expert Support</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Mockup -->
+      <div class="dashboard-wrap aos aos-delay-2">
+        <div class="float-badge a">⚡ AI Insight: +12% Yield</div>
+        <div class="dashboard">
+          <div class="dash-header">
+            <div class="dash-title">Operations Dashboard</div>
+            <div class="dash-live"><div class="live-dot"></div>Live</div>
+          </div>
+          <div class="dash-kpis">
+            <div class="kpi">
+              <div class="kpi-label">Revenue</div>
+              <div class="kpi-val sky">$2.4M</div>
+              <div class="kpi-change">↑ 18.3%</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Production</div>
+              <div class="kpi-val gold">94.2%</div>
+              <div class="kpi-change">↑ 7.1%</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Quality Score</div>
+              <div class="kpi-val green">99.1</div>
+              <div class="kpi-change">↑ 2.4%</div>
+            </div>
+          </div>
+          <div class="chart-area">
+            <div class="chart-label">Monthly Revenue Analysis</div>
+            <div class="chart-bars" id="dashBars"></div>
+          </div>
+          <div class="dash-bottom">
+            <div class="ai-card">
+              <div class="ai-tag">🤖 AI INSIGHT</div>
+              <div class="ai-text">Batch #4782 predicted 96.8% quality score. Recommend processing priority.</div>
+            </div>
+            <div class="perf-card">
+              <div class="perf-row"><span class="perf-name">Efficiency</span><span class="perf-val">94%</span></div>
+              <div class="perf-bar-bg"><div class="perf-bar-fill" style="width:94%"></div></div>
+              <div class="perf-row" style="margin-top:8px"><span class="perf-name">Uptime</span><span class="perf-val">99.9%</span></div>
+              <div class="perf-bar-bg"><div class="perf-bar-fill" style="width:99.9%"></div></div>
+              <div class="perf-row" style="margin-top:8px"><span class="perf-name">On-Time Delivery</span><span class="perf-val">97%</span></div>
+              <div class="perf-bar-bg"><div class="perf-bar-fill" style="width:97%"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="float-badge b">✅ 99.9% Uptime SLA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <div class="container">
+    <div class="trust-title">Trusted by Industry Leaders</div>
+    <div class="logo-track">
+      <div class="logo-inner" id="trustLogos"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section-pad">
+  <div class="grid-bg"></div>
+  <div class="orb orb-sky" style="width:500px;height:500px;top:0;right:-200px;opacity:.6;"></div>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow aos">What We Build</span>
+      <h2 class="section-title aos aos-delay-1">Enterprise-Grade <span class="title-sky">Digital Solutions</span></h2>
+      <p class="section-sub aos aos-delay-2">From concept to deployment, we engineer platforms that drive measurable business outcomes at scale.</p>
+    </div>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries" class="section-pad">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow aos">Sectors We Serve</span>
+      <h2 class="section-title aos aos-delay-1">Deep <span class="title-gold">Industry</span> Expertise</h2>
+      <p class="section-sub aos aos-delay-2">Specialized knowledge across every segment of the food technology and manufacturing ecosystem.</p>
+    </div>
+    <div class="industries-grid" id="industriesGrid"></div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section id="technology" class="section-pad">
+  <div class="orb orb-gold" style="width:400px;height:400px;bottom:0;left:0;opacity:.5;"></div>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow aos">Our Stack</span>
+      <h2 class="section-title aos aos-delay-1">Built on <span class="title-sky">Modern Technology</span></h2>
+      <p class="section-sub aos aos-delay-2">We use battle-tested, enterprise-ready tools combined with the latest innovations in AI and cloud infrastructure.</p>
+    </div>
+    <div class="tech-categories" id="techCats"></div>
+    <div class="tech-grid" id="techGrid"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section-pad">
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow aos">Why Choose Us</span>
+      <h2 class="section-title aos aos-delay-1">Why Leading Businesses <span class="title-sky">Choose Us</span></h2>
+    </div>
+    <div class="features-layout">
+      <div class="feature-timeline" id="featuresList"></div>
+      <div class="features-visual aos">
+        <div class="vis-title">Performance Benchmark vs. Industry Average</div>
+        <div id="visMetrics"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="casestudies" class="section-pad">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow aos">Proven Results</span>
+      <h2 class="section-title aos aos-delay-1">Case <span class="title-gold">Studies</span></h2>
+      <p class="section-sub aos aos-delay-2">Real transformations, measurable impact. See how we've helped leading food companies scale with technology.</p>
+    </div>
+    <div class="cases-grid" id="casesGrid"></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="section-pad">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <span class="section-eyebrow aos">How We Work</span>
+      <h2 class="section-title aos aos-delay-1">Our <span class="title-sky">Delivery Process</span></h2>
+      <p class="section-sub aos aos-delay-2" style="margin:0 auto;">A proven six-step methodology refined across 500+ enterprise engagements.</p>
+    </div>
+    <div class="process-scroll">
+      <div class="process-track" id="processTrack"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="section-pad" style="background:var(--bg2);">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <span class="section-eyebrow aos">Client Voices</span>
+      <h2 class="section-title aos aos-delay-1">What Our <span class="title-sky">Clients Say</span></h2>
+    </div>
+  </div>
+  <div class="testi-track">
+    <div class="testi-inner" id="testiInner"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-pad">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <span class="section-eyebrow aos">FAQ</span>
+      <h2 class="section-title aos aos-delay-1">Common <span class="title-gold">Questions</span></h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="grid-bg"></div>
+  <div class="orb orb-sky" style="width:600px;height:600px;top:-200px;left:-200px;opacity:.5;"></div>
+  <div class="orb orb-gold" style="width:400px;height:400px;bottom:-100px;right:-100px;opacity:.5;"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <span class="section-eyebrow aos">Start Your Transformation</span>
+      <h2 class="cta-title aos aos-delay-1">Ready to Build the <span class="title-sky">Future</span> of Your Business?</h2>
+      <p class="cta-sub aos aos-delay-2">Let's discuss your next digital transformation initiative. We typically respond within 2 hours.</p>
+      <div class="cta-btns aos aos-delay-3">
+        <a href="mailto:hello@foodtechdigital.com" class="btn-primary">Schedule Consultation</a>
+        <a href="mailto:proposals@foodtechdigital.com" class="btn-outline">Request Proposal</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid" id="footerGrid">
+      <div class="footer-brand">
+        <a href="#hero" class="logo">FOODTECH <span>DIGITAL</span></a>
+        <p class="footer-tagline">Enterprise digital transformation for the food industry. We engineer platforms that scale, automate, and deliver measurable results.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-btn" aria-label="GitHub">⌥</a>
+          <a href="#" class="social-btn" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#">Custom Software</a></li>
+          <li><a href="#">AI & Machine Learning</a></li>
+          <li><a href="#">Cloud & DevOps</a></li>
+          <li><a href="#">ERP Integration</a></li>
+          <li><a href="#">Business Automation</a></li>
+          <li><a href="#">Cybersecurity</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Industries</div>
+        <ul class="footer-links">
+          <li><a href="#">Food Processing</a></li>
+          <li><a href="#">Bakery & Confectionery</a></li>
+          <li><a href="#">Dairy & Beverage</a></li>
+          <li><a href="#">Supply Chain</a></li>
+          <li><a href="#">Restaurants</a></li>
+          <li><a href="#">FoodTech Startups</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Newsletter</div>
+        <p style="font-size:.85rem;color:var(--text3);margin-bottom:.75rem;line-height:1.5;">Get monthly insights on food tech trends and digital transformation.</p>
+        <div class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Your email">
+          <button class="newsletter-btn">→</button>
+        </div>
+        <p style="font-size:.75rem;color:var(--text3);margin-top:.5rem;">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 FoodTech Digital. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── DATA ──
+const services = [
+  {title:"Custom Software Development",icon:"⚙️",desc:"Bespoke enterprise applications engineered for the unique workflows of food manufacturing and distribution.",features:["ERP & WMS Integrations","Compliance Automation","Real-Time Analytics","API-First Architecture"]},
+  {title:"AI & Machine Learning",icon:"🤖",desc:"Predictive quality control, demand forecasting, and intelligent automation that learns from your production data.",features:["Quality Inspection AI","Demand Forecasting","Yield Optimization","NLP Document Processing"]},
+  {title:"Cloud & DevOps",icon:"☁️",desc:"Scalable, resilient cloud infrastructure on AWS, Azure, and GCP with enterprise SLAs and 99.99% uptime.",features:["Multi-Cloud Architecture","CI/CD Pipelines","Kubernetes Orchestration","Disaster Recovery"]},
+  {title:"Business Automation",icon:"⚡",desc:"Eliminate manual bottlenecks across procurement, production scheduling, and regulatory reporting workflows.",features:["RPA & Workflow Engines","EDI Integration","Auto-Reporting","Process Mining"]},
+  {title:"ERP Integration",icon:"🔗",desc:"Seamless integration with SAP, Oracle, and Microsoft Dynamics to unify your operational data landscape.",features:["SAP S/4HANA","Oracle Cloud ERP","Microsoft Dynamics","Custom Connectors"]},
+  {title:"Cybersecurity Solutions",icon:"🛡️",desc:"Enterprise-grade security frameworks, compliance auditing, and threat intelligence for regulated food environments.",features:["ISO 27001 Compliance","Zero-Trust Architecture","SIEM & Monitoring","Penetration Testing"]}
+];
+const industries = [
+  {icon:"🏭",title:"Food Processing",desc:"End-to-end MES, SCADA integration, and traceability systems for large-scale processing facilities."},
+  {icon:"🥐",title:"Bakery & Confectionery",desc:"Recipe management, batch control, and allergen tracking platforms for precision baking operations."},
+  {icon:"🥛",title:"Dairy & Beverage",desc:"Cold-chain monitoring, pasteurization control, and shelf-life optimization for perishable goods."},
+  {icon:"🚛",title:"Supply Chain & Logistics",desc:"Real-time fleet visibility, warehouse automation, and predictive inventory management systems."},
+  {icon:"🍽️",title:"Restaurants & Hospitality",desc:"POS integration, kitchen display systems, and multi-site analytics for food service operators."},
+  {icon:"🚀",title:"FoodTech Startups",desc:"Rapid MVP development, investor-ready architecture, and scalable infrastructure for emerging brands."}
+];
+const techStack = {
+  Frontend:["React","Next.js","TypeScript","Vue.js","Tailwind CSS","GraphQL"],
+  Backend:["Node.js","Python","FastAPI","Go","Java Spring","REST APIs"],
+  Cloud:["AWS","Azure","Google Cloud","Vercel","Cloudflare","Terraform"],
+  Database:["PostgreSQL","MongoDB","Redis","Snowflake","Elasticsearch","ClickHouse"],
+  DevOps:["Docker","Kubernetes","GitHub Actions","ArgoCD","Prometheus","Grafana"],
+  AI:["OpenAI","TensorFlow","PyTorch","LangChain","Hugging Face","Vertex AI"]
+};
+const techColors = {Frontend:"sky",Backend:"gold",Cloud:"green",Database:"purple",DevOps:"green",AI:"gold"};
+const features = [
+  {title:"Enterprise Architecture",desc:"Scalable, microservices-based systems built for millions of transactions per day with zero data loss guarantees."},
+  {title:"AI-Driven Insights",desc:"Embedded machine learning models that turn your operational data into competitive intelligence in real time."},
+  {title:"Scalable Infrastructure",desc:"Auto-scaling cloud architecture that grows with your business — no performance degradation at peak loads."},
+  {title:"Deep Industry Expertise",desc:"Our team has shipped software for 50+ food companies. We understand HACCP, FDA compliance, and food-grade requirements."},
+  {title:"Rapid Delivery",desc:"Agile sprints and CI/CD pipelines mean you see working software in weeks, not quarters."},
+  {title:"24/7 Enterprise Support",desc:"Dedicated success managers, SLA-backed response times, and a 99.9% uptime guarantee backed by credits."}
+];
+const visMetrics = [
+  {name:"Time to Delivery",score:"3.2×",pct:85},
+  {name:"System Uptime",score:"99.9%",pct:99},
+  {name:"ROI within 12 months",score:"340%",pct:90},
+  {name:"Client Retention Rate",score:"96%",pct:96}
+];
+const caseStudies = [
+  {icon:"📦",metric:"45% Efficiency ↑",tag:"Manufacturing",title:"Inventory Management Platform",desc:"Rebuilt a legacy warehouse system for a 12-facility food group, integrating real-time RFID tracking with demand-driven replenishment."},
+  {icon:"🔬",metric:"60% Inspection ↓",tag:"AI & Quality",title:"AI Quality Monitoring System",desc:"Deployed computer vision and ML models on the production line to automate defect detection, replacing 40 manual inspection stations."},
+  {icon:"📊",metric:"35% Cost Savings",tag:"Analytics",title:"Food Distribution Analytics Platform",desc:"Built a unified data warehouse and BI layer that consolidated 17 data sources, enabling real-time P&L visibility across 8 regions."}
+];
+const processSteps = [
+  {n:"01",title:"Discovery",desc:"Stakeholder interviews, process mapping, and technical audit"},
+  {n:"02",title:"Strategy",desc:"Architecture design, roadmap, and investment planning"},
+  {n:"03",title:"Design",desc:"UX prototypes, data models, and API contracts"},
+  {n:"04",title:"Development",desc:"Agile sprints, code review, and automated testing"},
+  {n:"05",title:"Deployment",desc:"CI/CD pipeline, staging, and production launch"},
+  {n:"06",title:"Optimization",desc:"Performance tuning, analytics, and continuous improvement"}
+];
+const testimonials = [
+  {name:"Sarah Chen",company:"Pacific Foods Group",quote:"FoodTech Digital delivered an ERP integration that our previous vendor said was impossible. We went live 3 weeks ahead of schedule and under budget.",initials:"SC"},
+  {name:"Raj Patel",company:"Heritage Dairy Ltd.",quote:"The AI quality system they built has transformed our production floor. We've reduced waste by 28% in the first quarter alone.",initials:"RP"},
+  {name:"Maria González",company:"Sunrise Bakeries",quote:"Their team understood our business from day one. The platform they built handles 4x our original volume without any changes.",initials:"MG"},
+  {name:"James Whitfield",company:"GlobalFresh Logistics",quote:"We've worked with many software firms. FoodTech Digital operates at a different level — they think like a business partner, not a vendor.",initials:"JW"},
+  {name:"Aiko Tanaka",company:"Umami Foods Corp.",quote:"From discovery to go-live in 14 weeks. The predictive demand engine has cut our overstock by 40%. Exceptional execution.",initials:"AT"},
+  {name:"David Osei",company:"Accra Grain Holdings",quote:"The cloud migration was seamless. Zero downtime, full data integrity, and our IT costs dropped 32% year-over-year.",initials:"DO"}
+];
+const faqs = [
+  {q:"What industries do you serve?",a:"We specialize in food technology and manufacturing, including food processing, bakery, dairy, beverage, supply chain, distribution, restaurants, and FoodTech startups. We also serve adjacent industries like FMCG and agri-tech."},
+  {q:"How long does a typical enterprise project take?",a:"Timelines depend on scope. A focused module (e.g. analytics dashboard or API integration) typically takes 6–10 weeks. A full ERP build or AI platform ranges from 4–12 months. We begin with a 2-week discovery sprint so you have a precise roadmap before committing."},
+  {q:"Do you work with our existing technology stack?",a:"Yes. We're stack-agnostic and have deep integration experience with SAP, Oracle, Microsoft Dynamics, Salesforce, and dozens of industry-specific platforms. We work with what you have and add where it creates value."},
+  {q:"What does your pricing model look like?",a:"We offer fixed-scope project pricing for well-defined deliverables, and retainer-based engagements for ongoing product development. Enterprise projects typically start at $50K. We'll provide a detailed proposal after discovery."},
+  {q:"Do you offer post-launch support?",a:"All projects include a 90-day hypercare period. Beyond that, we offer tiered SLA contracts ranging from business-hours support to 24/7 dedicated support with sub-1-hour response times."},
+  {q:"How do you handle data security and compliance?",a:"We design to ISO 27001, SOC 2 Type II, and FDA 21 CFR Part 11 standards where relevant. All production environments use encryption at rest and in transit, role-based access control, and full audit logging."}
+];
+const trustLogos = ["PremiumFoods Co.","AgriTech Ventures","GlobalFresh","Heritage Dairy","Sunrise Group","Pacific Foods","Umami Corp.","ColdChain Plus","FreshRoute","NutriScale","GrainHoldings","BatchMaster"];
+
+// ── RENDER ──
+function buildDashBars(){
+  const vals=[55,70,48,82,65,90,75,88,72,95,80,100];
+  const g=document.getElementById('dashBars');
+  vals.forEach((v,i)=>{
+    const b=document.createElement('div');
+    b.className='bar'+(i%3===2?' gold':'');
+    b.style.height=v*0.8+'%';
+    g.appendChild(b);
+  });
+}
+function buildTrustLogos(){
+  const g=document.getElementById('trustLogos');
+  const all=[...trustLogos,...trustLogos];
+  all.forEach(l=>{
+    const d=document.createElement('div');
+    d.className='trust-logo';
+    d.innerHTML=`<span>◆</span>${l}`;
+    g.appendChild(d);
+  });
+}
+function buildServices(){
+  const g=document.getElementById('servicesGrid');
+  services.forEach((s,i)=>{
+    const d=document.createElement('div');
+    d.className=`service-card aos aos-delay-${(i%3)+1}`;
+    d.innerHTML=`
+      <div class="svc-arrow">→</div>
+      <div class="svc-icon">${s.icon}</div>
+      <h3 class="svc-title">${s.title}</h3>
+      <p class="svc-desc">${s.desc}</p>
+      <ul class="svc-features">${s.features.map(f=>`<li>${f}</li>`).join('')}</ul>`;
+    g.appendChild(d);
+  });
+}
+function buildIndustries(){
+  const g=document.getElementById('industriesGrid');
+  industries.forEach((ind,i)=>{
+    const d=document.createElement('div');
+    d.className=`ind-card aos aos-delay-${(i%3)+1}`;
+    d.innerHTML=`<div class="ind-icon">${ind.icon}</div><h3 class="ind-title">${ind.title}</h3><p class="ind-desc">${ind.desc}</p>`;
+    g.appendChild(d);
+  });
+}
+function buildTech(){
+  const cats=document.getElementById('techCats');
+  const grid=document.getElementById('techGrid');
+  let active='All';
+  const allTechs=Object.entries(techStack).flatMap(([cat,ts])=>ts.map(t=>({t,cat})));
+  function renderCats(){
+    cats.innerHTML='';
+    ['All',...Object.keys(techStack)].forEach(c=>{
+      const b=document.createElement('button');
+      b.className='tech-cat'+(c===active?' active':'');
+      b.textContent=c;
+      b.onclick=()=>{active=c;renderCats();renderGrid();};
+      cats.appendChild(b);
+    });
+  }
+  function renderGrid(){
+    grid.innerHTML='';
+    const show=active==='All'?allTechs:allTechs.filter(x=>x.cat===active);
+    show.forEach(({t,cat},i)=>{
+      const dotClass=techColors[cat]||'sky';
+      const b=document.createElement('div');
+      b.className='tech-badge';
+      b.style.cssText=`--dur:${3+Math.random()*3}s;--del:${Math.random()*2}s`;
+      b.innerHTML=`<div class="tech-dot ${dotClass}"></div>${t}`;
+      grid.appendChild(b);
+    });
+  }
+  renderCats();renderGrid();
+}
+function buildFeatures(){
+  const list=document.getElementById('featuresList');
+  features.forEach((f,i)=>{
+    const d=document.createElement('div');
+    d.className='feat-item aos';
+    d.innerHTML=`<div class="feat-num">${String(i+1).padStart(2,'0')}</div><div class="feat-content"><h3 class="feat-title">${f.title}</h3><p class="feat-desc">${f.desc}</p></div>`;
+    list.appendChild(d);
+  });
+  const vm=document.getElementById('visMetrics');
+  visMetrics.forEach(m=>{
+    const d=document.createElement('div');
+    d.className='vis-metric';
+    d.innerHTML=`<div><div class="vis-name">${m.name}</div><div class="vis-bar"><div class="vis-fill" style="width:${m.pct}%"></div></div></div><div class="vis-score">${m.score}</div>`;
+    vm.appendChild(d);
+  });
+}
+function buildCases(){
+  const g=document.getElementById('casesGrid');
+  caseStudies.forEach((c,i)=>{
+    const d=document.createElement('div');
+    d.className=`case-card aos aos-delay-${i+1}`;
+    d.innerHTML=`
+      <div class="case-img">
+        <div class="case-img-inner">${c.icon}</div>
+        <div class="case-metric">${c.metric}</div>
+      </div>
+      <div class="case-body">
+        <div class="case-tag">${c.tag}</div>
+        <h3 class="case-title">${c.title}</h3>
+        <p class="case-desc">${c.desc}</p>
+        <a href="#" class="case-link">Read Case Study →</a>
+      </div>`;
+    g.appendChild(d);
+  });
+}
+function buildProcess(){
+  const g=document.getElementById('processTrack');
+  processSteps.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='proc-step aos';
+    d.innerHTML=`<div class="proc-num">${s.n}</div><div class="proc-title">${s.title}</div><p class="proc-desc">${s.desc}</p>`;
+    g.appendChild(d);
+  });
+}
+function buildTestimonials(){
+  const g=document.getElementById('testiInner');
+  const all=[...testimonials,...testimonials];
+  all.forEach(t=>{
+    const d=document.createElement('div');
+    d.className='testi-card';
+    d.innerHTML=`
+      <div class="testi-stars">${'★'.repeat(5).split('').map(s=>`<span class="star">${s}</span>`).join('')}</div>
+      <p class="testi-quote">"${t.quote}"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">${t.initials}</div>
+        <div><div class="testi-name">${t.name}</div><div class="testi-company">${t.company}</div></div>
+      </div>`;
+    g.appendChild(d);
+  });
+}
+function buildFAQ(){
+  const g=document.getElementById('faqList');
+  faqs.forEach(f=>{
+    const d=document.createElement('div');
+    d.className='faq-item aos';
+    d.innerHTML=`
+      <button class="faq-q">${f.q}<div class="faq-icon">+</div></button>
+      <div class="faq-a">${f.a}</div>`;
+    d.querySelector('.faq-q').onclick=()=>{
+      d.classList.toggle('open');
+      d.querySelector('.faq-icon').textContent=d.classList.contains('open')?'+':'+';
+    };
+    g.appendChild(d);
+  });
+}
+
+// ── COUNTER ──
+function animateCounters(){
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    const suffix=el.dataset.target.includes('%')?'%':'+';
+    let current=0;
+    const step=Math.ceil(target/60);
+    const timer=setInterval(()=>{
+      current=Math.min(current+step,target);
+      el.textContent=current+suffix;
+      if(current>=target)clearInterval(timer);
+    },25);
+  });
+}
+
+// ── NAVBAR SCROLL ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',scrollY>50);
+});
+
+// ── HAMBURGER ──
+document.getElementById('hamburger').onclick=()=>document.getElementById('mobileMenu').classList.toggle('open');
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');}
+
+// ── AOS ──
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      if(e.target.querySelector('[data-target]'))animateCounters();
+    }
+  });
+},{threshold:.12});
+function initAOS(){document.querySelectorAll('.aos').forEach(el=>observer.observe(el));}
+
+// ── INIT ──
+buildDashBars();
+buildTrustLogos();
+buildServices();
+buildIndustries();
+buildTech();
+buildFeatures();
+buildCases();
+buildProcess();
+buildTestimonials();
+buildFAQ();
+initAOS();
+</script>
+</body>
+</html>
