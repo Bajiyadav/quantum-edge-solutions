@@ -1,3 +1,5 @@
+
+
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
@@ -8,13 +10,29 @@ datasource db {
 }
 
 model Lead {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  phone     String?
-  company   String?
-  service   String
-  budget    String?
-  message   String
-  createdAt DateTime @default(now())
+id        Int      @id @default(autoincrement())
+name      String
+email     String   @unique
+phone     String?
+company   String?
+
+service   String
+budget    String?
+message   String
+status    String   @default("new")
+createdAt DateTime @default(now())
+}
+
+
+
+model Provider {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  phone      String?
+  skills     String
+  experience String?
+  portfolio  String?
+  linkedin   String?
+  createdAt  DateTime @default(now())
 }
